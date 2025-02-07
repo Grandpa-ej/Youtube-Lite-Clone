@@ -1,7 +1,17 @@
 FROM python:3.7.9
+
+# Copy the project files into the container
 COPY . .
+
+# Install dependencies from requirements.txt
 RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
-RUN pip install "uvicorn[standard]"
+
+# Install Gunicorn
+RUN pip install gunicorn
+
+# Expose the port on which the app will run
 EXPOSE 5000
-CMD ["uvicorn", "project.main:main", "--host", "0.0.0.0", "--port", "5000"]
-#CMD ["flask", "run"]
+
+# Run the application using Gunicorn
+CMD ["gunicorn", "project.main:create_app()", "--bind", "0.0.0.0:5000"]
+
