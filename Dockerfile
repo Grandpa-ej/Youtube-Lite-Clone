@@ -16,4 +16,5 @@ RUN pip install gunicorn
 EXPOSE 5000
 
 # Command to run the app using Gunicorn
-CMD ["gunicorn", "project.app:create_app()", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["gunicorn", "project.app:create_app()", "--bind", "0.0.0.0:5000"]
+
